@@ -1,0 +1,19 @@
+{
+    "description": "Captcha form field to protect recipients from spam.",
+    "type": "neos-package",
+    "name": "inoovum/formcaptcha",
+    "require": {
+        "neos/neos": "*",
+        "neos/form-builder": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Inoovum\\FormCaptcha\\": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Inoovum.FormCaptcha"
+        }
+    }
+}

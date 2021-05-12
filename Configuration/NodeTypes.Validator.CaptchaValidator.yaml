@@ -1,0 +1,10 @@
+'Inoovum.FormCaptcha:CaptchaValidator':
+  superTypes:
+    'Neos.Form.Builder:AbstractValidator': true
+  ui:
+    label: Captcha validator
+    icon: fas fa-shield-alt
+    inspector:
+      groups:
+        'validator':
+          icon: fas fa-shield-alt

@@ -1,0 +1,23 @@
+'Inoovum.FormCaptcha:Captcha':
+  superTypes:
+    'Neos.Form.Builder:FormElement': true
+    'Neos.Form.Builder:ValidatorsMixin': true
+  ui:
+    label: Captcha
+    icon: fas fa-shield-alt
+    group: form.custom
+    inspector:
+      groups:
+        formElement:
+          icon: fas fa-shield-alt
+          position: end
+  properties:
+    required:
+      defaultValue: true
+      ui: ~
+  childNodes:
+    'validators':
+      constraints:
+        nodeTypes:
+          '*': false
+          'Inoovum.FormCaptcha:CaptchaValidator': true

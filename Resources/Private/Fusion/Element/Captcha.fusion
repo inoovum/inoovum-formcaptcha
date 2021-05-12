@@ -1,0 +1,6 @@
+prototype(Inoovum.FormCaptcha:Captcha.Definition) < prototype(Neos.Form.Builder:FormElement.Definition) {
+    formElementType = 'Inoovum.FormCaptcha:Captcha'
+    properties {
+        captcha = Inoovum.FormCaptcha:Class.Captcha
+    }
+}

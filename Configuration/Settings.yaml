@@ -1,0 +1,36 @@
+Neos:
+  Neos:
+    fusion:
+      autoInclude:
+        Inoovum.FormCaptcha: true
+    userInterface:
+      translation:
+        autoInclude:
+          Inoovum.FormCaptcha:
+            - Main
+  Form:
+    presets:
+      default:
+        formElementTypes:
+          'Inoovum.FormCaptcha:Captcha':
+            renderingOptions:
+              templatePathPattern: 'resource://Inoovum.FormCaptcha/Private/Templates/Form/{@type}.html'
+            superTypes:
+              'Neos.Form:FormElement': true
+            properties:
+              elementClassAttribute: form-control
+        validatorPresets:
+          'Inoovum.FormCaptcha:CaptchaValidator':
+            implementationClassName: Inoovum\FormCaptcha\Validation\Validator\CaptchaValidator
+      bootstrap:
+        formElementTypes:
+          'Inoovum.FormCaptcha:Captcha':
+            renderingOptions:
+              templatePathPattern: 'resource://Inoovum.FormCaptcha/Private/Templates/Form/{@type}.html'
+            superTypes:
+              'Neos.Form:FormElement': true
+            properties:
+              elementClassAttribute: form-control
+        validatorPresets:
+          'Inoovum.FormCaptcha:CaptchaValidator':
+            implementationClassName: Inoovum\FormCaptcha\Validation\Validator\CaptchaValidator

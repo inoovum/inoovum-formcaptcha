@@ -1,0 +1,3 @@
+prototype(Inoovum.FormCaptcha:CaptchaValidator.Definition) < prototype(Neos.Form.Builder:Validator.Definition) {
+    formElementType = 'Inoovum.FormCaptcha:CaptchaValidator'
+}
