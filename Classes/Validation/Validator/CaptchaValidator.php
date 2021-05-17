@@ -22,12 +22,12 @@ class CaptchaValidator extends \Neos\Flow\Validation\Validator\AbstractValidator
     protected function isValid($value)
     {
         if (!is_array($value)) {
-            $this->addError('This property is wrong.', 23424423424345435);
+            $this->addError('This property is required.', 1221560910);
         } else {
             $base64 = base64_decode($value['captcha'][0]);
             $input = $value['captcha'][1];
             if($base64 != $input) {
-                $this->addError('This property is wrong.', 23424423424345435);
+                $this->addError('A valid string is expected.', 1238108070);
             }
         }
     }

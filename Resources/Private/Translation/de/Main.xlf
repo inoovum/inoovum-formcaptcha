@@ -3,7 +3,7 @@
     <file original="" product-name="Inoovum.FormCaptcha" source-language="de" datatype="plaintext">
         <body>
             <trans-unit id="failureMsg" xml:space="preserve">
-				<source>Die Eingabe war nicht korrekt. Bitte wiederholen.</source>
+				<source>Ihre Eingabe war nicht korrekt. Bitte wiederholen.</source>
 			</trans-unit>
         </body>
     </file>

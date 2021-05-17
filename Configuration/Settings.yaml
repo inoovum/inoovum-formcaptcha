@@ -19,6 +19,7 @@ Neos:
               'Neos.Form:FormElement': true
             properties:
               elementClassAttribute: form-control
+              elementErrorClassAttribute: is-invalid
         validatorPresets:
           'Inoovum.FormCaptcha:CaptchaValidator':
             implementationClassName: Inoovum\FormCaptcha\Validation\Validator\CaptchaValidator
@@ -31,6 +32,7 @@ Neos:
               'Neos.Form:FormElement': true
             properties:
               elementClassAttribute: form-control
+              elementErrorClassAttribute: is-invalid
         validatorPresets:
           'Inoovum.FormCaptcha:CaptchaValidator':
             implementationClassName: Inoovum\FormCaptcha\Validation\Validator\CaptchaValidator
