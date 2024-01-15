@@ -2,20 +2,39 @@
 namespace Inoovum\FormCaptcha\Fusion;
 
 use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Security\Cryptography\HashService;
 use Neos\Fusion\FusionObjects\AbstractFusionObject;
 
 /**
  * @Flow\Scope("singleton")
  */
-class CaptchaFusion extends AbstractFusionObject {
+class CaptchaFusion extends AbstractFusionObject
+{
+
+    /**
+     * @var HashService
+     * @Flow\Inject
+     */
+    protected $hashService;
+
+    /**
+     * @Flow\InjectConfiguration(package="Inoovum.FormCaptcha", path="permittedChars")
+     * @var string
+     */
+    protected $permittedChars;
+
+    /**
+     * @Flow\InjectConfiguration(package="Inoovum.FormCaptcha", path="stringLength")
+     * @var string
+     */
+    protected $stringLength;
 
     /**
      * @return array
      */
-    public function evaluate():array
+    public function evaluate(): array
     {
-        $captcha = $this->createImage();
-        return $captcha;
+        return $this->createImage();
     }
 
     /**
@@ -26,7 +45,7 @@ class CaptchaFusion extends AbstractFusionObject {
      * @return string
      * @throws
      */
-    public function secureGenerateString(string $input, int $strength = 5, bool $secure = true):string
+    private function secureGenerateString(string $input, int $strength = 5, bool $secure = true): string
     {
         $inputLength = strlen($input);
         $randomString = '';
@@ -42,10 +61,21 @@ class CaptchaFusion extends AbstractFusionObject {
     }
 
     /**
+     * @param string $string
+     *
+     * @return string
+     * @throws
+     */
+    private function hashString(string $string): string
+    {
+        return $this->hashService->hashPassword($string);
+    }
+
+    /**
      * @return array
      * @throws
      */
-    public function createImage():array
+    private function createImage(): array
     {
         $image = imagecreatetruecolor(200, 50);
         imageantialias($image, true);
@@ -54,7 +84,7 @@ class CaptchaFusion extends AbstractFusionObject {
         $green = rand(125, 175);
         $blue = rand(125, 175);
         for($i = 0; $i < 5; $i++) {
-            $colors[] = imagecolorallocate($image, $red - 20*$i, $green - 20*$i, $blue - 20*$i);
+            $colors[] = imagecolorallocate($image, $red - 20 * $i, $green - 20 * $i, $blue - 20 * $i);
         }
         imagefill($image, 0, 0, $colors[0]);
         for($i = 0; $i < 10; $i++) {
@@ -67,15 +97,13 @@ class CaptchaFusion extends AbstractFusionObject {
         $white = imagecolorallocate($image, 255, 255, 255);
         $textcolors = [$black, $white];
 
-        $fontDirectory = constant('FLOW_PATH_ROOT') . 'Packages/Application/Inoovum.FormCaptcha/Resources/Private/Fonts/';
+        $fontDirectory = constant('FLOW_PATH_PACKAGES') . 'Application/Inoovum.FormCaptcha/Resources/Private/Fonts/';
         $fonts = [$fontDirectory . 'Acme.ttf', $fontDirectory . 'Ubuntu.ttf', $fontDirectory . 'Merriweather.ttf', $fontDirectory . 'PlayfairDisplay.ttf'];
 
-        $permittedChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $stringLength = 6;
-        $captchaString = $this->secureGenerateString($permittedChars, $stringLength);
+        $captchaString = $this->secureGenerateString($this->permittedChars, $this->stringLength);
 
-        for($i = 0; $i < $stringLength; $i++) {
-            $letterSpace = 170/$stringLength;
+        for($i = 0; $i < $this->stringLength; $i++) {
+            $letterSpace = 170 / $this->stringLength;
             $initial = 15;
             imagettftext($image, 20, rand(-15, 15), $initial + $i * $letterSpace, rand(20, 40), $textcolors[rand(0, 1)], $fonts[array_rand($fonts)], $captchaString[$i]);
         }
@@ -86,13 +114,10 @@ class CaptchaFusion extends AbstractFusionObject {
         $bin = ob_get_clean();
         $b64 = 'data:image/image/png;base64,' . base64_encode($bin);
 
-        $captchaImage = [
+        return [
             'image' => $b64,
-            'string' => base64_encode($captchaString)
+            'string' => $this->hashString($captchaString)
         ];
-
-        return $captchaImage;
-
     }
 
 }

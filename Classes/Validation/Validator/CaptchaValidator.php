@@ -2,6 +2,7 @@
 namespace Inoovum\FormCaptcha\Validation\Validator;
 
 use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Security\Cryptography\HashService;
 
 /**
  * @api
@@ -9,6 +10,13 @@ use Neos\Flow\Annotations as Flow;
  */
 class CaptchaValidator extends \Neos\Flow\Validation\Validator\AbstractValidator
 {
+
+    /**
+     * @var HashService
+     * @Flow\Inject
+     */
+    protected $hashService;
+
     /**
      * @var boolean
      */
@@ -19,14 +27,14 @@ class CaptchaValidator extends \Neos\Flow\Validation\Validator\AbstractValidator
      * @return void
      * @api
      */
-    protected function isValid($value)
+    protected function isValid($value): void
     {
         if (!is_array($value)) {
             $this->addError('This property is required.', 1221560910);
         } else {
-            $base64 = base64_decode($value['captcha'][0]);
             $input = $value['captcha'][1];
-            if($base64 != $input) {
+            $salt = $value['captcha'][0];
+            if(!$this->hashService->validatePassword($input, $salt)) {
                 $this->addError('A valid string is expected.', 1238108070);
             }
         }
