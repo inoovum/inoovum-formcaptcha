@@ -36,3 +36,8 @@ Neos:
         validatorPresets:
           'Inoovum.FormCaptcha:CaptchaValidator':
             implementationClassName: Inoovum\FormCaptcha\Validation\Validator\CaptchaValidator
+
+Inoovum:
+  FormCaptcha:
+    permittedChars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    stringLength: 6
