@@ -1,0 +1,7 @@
+-
+  name: 'Captcha'
+  uriPattern: 'inoovum/form-captcha/get'
+  defaults:
+    '@controller': 'Captcha'
+    '@package': 'Inoovum.FormCaptcha'
+    '@action': 'getCaptcha'

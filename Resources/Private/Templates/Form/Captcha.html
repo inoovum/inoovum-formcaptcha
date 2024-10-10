@@ -2,8 +2,17 @@
 <f:layout name="Neos.Form:Field" />
 <f:section name="field">
     <div class="form-captcha">
-        <img src="{element.properties.captcha.image}" class="mb-2" />
-        <f:form.hidden property="{element.identifier}[captcha][]" id="{element.uniqueIdentifier}__captcha" value="{element.properties.captcha.string}" />
-        <f:form.textfield property="{element.identifier}[captcha][]" id="{element.uniqueIdentifier}" class="{element.properties.elementClassAttribute}" placeholder="Captcha" errorClass="{element.properties.elementErrorClassAttribute}" maxlength="{element.properties.maxlength}" />
+		<f:if condition="{element.properties.captcha}">
+			<f:then>
+				<img src="{element.properties.captcha.image}" class="mb-2" />
+				<f:form.hidden property="{element.identifier}[captcha][]" id="{element.uniqueIdentifier}__captcha" value="{element.properties.captcha.string}" />
+				<f:form.textfield property="{element.identifier}[captcha][]" id="{element.uniqueIdentifier}" class="{element.properties.elementClassAttribute}" placeholder="Captcha" errorClass="{element.properties.elementErrorClassAttribute}" />
+			</f:then>
+			<f:else>
+				<img src="" class="mb-2" />
+				<f:form.hidden property="{element.identifier}[captcha][]" id="{element.uniqueIdentifier}__captcha" value="" />
+				<f:form.textfield property="{element.identifier}[captcha][]" id="{element.uniqueIdentifier}" class="{element.properties.elementClassAttribute}" placeholder="Captcha" errorClass="{element.properties.elementErrorClassAttribute}" />
+			</f:else>
+		</f:if>
     </div>
 </f:section>

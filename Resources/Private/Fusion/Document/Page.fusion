@@ -1,0 +1,14 @@
+prototype(Neos.Neos:Page) {
+
+    captchaJs = Neos.Fusion:Component {
+        @position = 'end'
+
+        formCaptchaNodes = ${q(node).children('main').find('[instanceof Inoovum.FormCaptcha:Captcha]').filter('[_hidden=false]').get()}
+
+        renderer = afx`
+            <script @if.render={props.formCaptchaNodes && Array.length(props.formCaptchaNodes) > 0} src={StaticResource.uri('Inoovum.FormCaptcha', 'Public/JavaScript/captcha.min.js')}></script>
+        `
+    }
+    captchaJs.@if.condition = ${Configuration.setting('Inoovum.FormCaptcha.useJs') ? true : false}
+
+}

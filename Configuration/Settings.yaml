@@ -1,4 +1,8 @@
 Neos:
+  Flow:
+    mvc:
+      routes:
+        'Inoovum.FormCaptcha': true
   Neos:
     fusion:
       autoInclude:
@@ -41,3 +45,4 @@ Inoovum:
   FormCaptcha:
     permittedChars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     stringLength: 6
+#    useJs: true

@@ -1,0 +1,11 @@
+privilegeTargets:
+  Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege:
+    'Inoovum.FormCaptcha:CaptchaControllerActions':
+      matcher: 'method(Inoovum\FormCaptcha\Controller\CaptchaController->.*Action())'
+
+roles:
+  'Neos.Flow:Everybody':
+    privileges:
+      -
+        privilegeTarget: 'Inoovum.FormCaptcha:CaptchaControllerActions'
+        permission: GRANT
